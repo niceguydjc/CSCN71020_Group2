@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "CppUnitTest.h"
 
+
+
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 typedef struct point {
@@ -19,6 +21,10 @@ typedef struct rectangle {
 } RECTANGLE;
 
 extern "C" struct rectangle createRectangle(int ArrayOfPoints[4][2]);
+
+
+
+int equalRectangles(RECTANGLE rectangle1, RECTANGLE rectangle2);
 
 namespace input
 {
@@ -90,9 +96,43 @@ namespace rectangles
 			};
 
 			RECTANGLE actual = createRectangle(InputArray);
-
-			Assert::AreEqual(expected, actual);//might not work, may have to check each member individually
+			int result = equalRectangles(expected, actual);
+			Assert::AreEqual(result, 1);
 
 		}
 	};
+}
+
+//compares two rectangle structures, returns 1 if they are equal
+int equalRectangles(RECTANGLE rectangle1, RECTANGLE rectangle2) {
+	//compare top left
+	if (rectangle1.topLeftCorner.x != rectangle2.topLeftCorner.x) {
+		return 0;
+	}
+	if (rectangle1.topLeftCorner.y != rectangle2.topLeftCorner.y) {
+		return 0;
+	}
+	//compare top right
+	if (rectangle1.topRightCorner.x != rectangle2.topRightCorner.x) {
+		return 0;
+	}
+	if (rectangle1.topRightCorner.y != rectangle2.topRightCorner.y) {
+		return 0;
+	}
+
+	if (rectangle1.bottomRightCorner.x != rectangle2.bottomRightCorner.x) {
+		return 0;
+	}
+	if (rectangle1.bottomRightCorner.y != rectangle2.bottomRightCorner.y) {
+		return 0;
+	}
+
+	if (rectangle1.bottomLeftCorner.x != rectangle2.bottomLeftCorner.x) {
+		return 0;
+	}
+	if (rectangle1.bottomLeftCorner.y != rectangle2.bottomLeftCorner.y) {
+		return 0;
+	}
+
+	return 1;
 }

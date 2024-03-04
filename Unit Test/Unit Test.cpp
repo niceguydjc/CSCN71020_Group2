@@ -18,9 +18,7 @@ typedef struct rectangle {
 	int perimeter;
 } RECTANGLE;
 
-
-extern "C" struct rectangle;
-extern "C" RECTANGLE createRectangle;
+extern "C" struct rectangle createRectangle(int ArrayOfPoints[4][2]);
 
 namespace input
 {
@@ -44,7 +42,7 @@ namespace triangle
 		}
 	};
 }
-namespace rectangle
+namespace rectangles
 {
 	TEST_CLASS(area)
 	{
@@ -85,7 +83,7 @@ namespace rectangle
 			expected.topRightCorner.x = 8;
 			expected.topRightCorner.y = 6;
 			expected.topLeftCorner.x = 2;
-			expected.topLeftCorner.x = 6;
+			expected.topLeftCorner.y = 6;
 
 			int InputArray[4][2] = {
 				{8,2}, {2, 2}, {8, 6}, {2, 6}

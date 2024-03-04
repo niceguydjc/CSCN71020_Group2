@@ -16,4 +16,4 @@ typedef struct rectangle {
 	int perimeter;
 } RECTANGLE;
 
-RECTANGLE createRectangle(int**);
+RECTANGLE createRectangle(int ArrayOfPoints[4][2]);

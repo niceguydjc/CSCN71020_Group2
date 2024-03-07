@@ -139,11 +139,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="input.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="rectangleSolver.c" />
     <ClCompile Include="triangleSolver.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="input.h" />
     <ClInclude Include="rectangleSolver.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="triangleSolver.h" />

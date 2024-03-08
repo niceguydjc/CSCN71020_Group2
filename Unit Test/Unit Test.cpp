@@ -116,12 +116,12 @@ namespace rectangles
 
 		TEST_METHOD(Test007) {
 
-			Assert::AreEqual(actual.topRightCorner.x, 8);
+			Assert::AreEqual(actual.bottomRightCorner.x, 8);
 
 		}
 		TEST_METHOD(Test008) {
 
-			Assert::AreEqual(actual.topRightCorner.y, 2);
+			Assert::AreEqual(actual.bottomRightCorner.y, 2);
 
 		}
 	};

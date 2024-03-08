@@ -1,3 +1,5 @@
+//denimm - software implementation
+
 #include "rectangleSolver.h"
 
 
@@ -6,7 +8,27 @@ RECTANGLE createRectangle(int ArrayOfXYPairs[4][2]) {
 	//check if set of points makes a rectangle
 		//lines made between all points contains 2 pairs of identical sides
 
-	RECTANGLE newRectangle;
+
+	//start all corners off with the same coordinate
+	int initialx = ArrayOfXYPairs[0][0];
+	int initialy = ArrayOfXYPairs[0][1];
+
+
+	RECTANGLE newRectangle = {0};
+	newRectangle.topLeftCorner.x = initialx;
+	newRectangle.topLeftCorner.y = initialy;
+
+	newRectangle.topRightCorner.x = initialx;
+	newRectangle.topRightCorner.y = initialy;
+
+	newRectangle.bottomLeftCorner.x = initialx;
+	newRectangle.bottomLeftCorner.y = initialy;
+
+	newRectangle.bottomRightCorner.x = initialx;
+	newRectangle.bottomRightCorner.y = initialy;
+
+
+
 
 	//run through each corner until the lowest x and highest y is found
 	//find top left corner & assign

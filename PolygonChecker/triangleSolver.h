@@ -1,2 +1,2 @@
 #pragma once
-char* analyzeTriangle(int side1, int side2, int side3);
+void calculateTriangleAngles(double side_1, double side_2, double side_3);

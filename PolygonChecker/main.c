@@ -1,5 +1,7 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdbool.h>
+#include <stdlib.h>
 
 #include "main.h"
 #include "triangleSolver.h"
@@ -64,9 +66,14 @@ int printShapeMenu() {
 
 int* getTriangleSides(int* triangleSides) {
 	printf_s("Enter the three sides of the triangle: ");
+	int symbols_returned = 0;
 	for (int i = 0; i < 3; i++)
 	{
-		scanf_s("%d", &triangleSides[i]);
+		symbols_returned=scanf("%d", &triangleSides[i]);
+		if (symbols_returned != 1) {
+			printf("Error. Yor input is not suitable for the program. exiting");
+			exit(EXIT_FAILURE);
+		}
 	}
 	return triangleSides;
 }

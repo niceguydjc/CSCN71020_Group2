@@ -1,9 +1,9 @@
 #include "pch.h"
 #include "CppUnitTest.h"
 
-
-
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
+
+extern "C" float** createCoordinateArray(float** CoordinateArray);
 
 typedef struct point {
 	int x;

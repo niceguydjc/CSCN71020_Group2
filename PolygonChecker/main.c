@@ -8,6 +8,13 @@
 int side = 0;
 
 int main() {
+	double array[4][2] = { {0,1},{1.6,0.2},{0,-3},{-1.6,-2.2} };
+	QUADRILATERAL quad = createQuadrilateral(array);
+
+
+
+
+
 	bool continueProgram = true;
 	while (continueProgram) {
 		printWelcome();

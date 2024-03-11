@@ -24,5 +24,5 @@ int** createCoordinateArray(int** CoordinateArray) {
 		CoordinateArray[i][0] = x_coordinate;
 		CoordinateArray[i][1] = y_coordinate;
 	}
-	return **CoordinateArray;
+	return CoordinateArray;
 }

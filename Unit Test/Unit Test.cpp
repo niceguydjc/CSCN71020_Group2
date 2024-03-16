@@ -26,9 +26,8 @@ typedef struct quadrilateral {
 } QUADRILATERAL;
 
 
-
-extern "C" float** createCoordinateArray(float** CoordinateArray);
-extern "C" QUADRILATERAL createQuadrilateral(double ArrayOfPoints[4][2]);
+extern "C" int inputIsSuitable(int);
+extern "C" QUADRILATERAL createQuadrilateral(double array[4][2]);
 extern "C" LINE createLine(POINT point1, POINT point2);
 extern "C" POINT createPoint(double pair[2]);
 extern "C" char* analyzeTriangle(int, int, int);
@@ -44,8 +43,19 @@ namespace input
 	{
 	public:
 		
-		TEST_METHOD(TestMethod1)
+		TEST_METHOD(Input_for_rectangle_coordinates_and_triangle_is_not_suitable)
 		{
+			int parameter = 0;
+			int expected = EXIT_FAILURE;
+			int actual = inputIsSuitable(parameter);
+			Assert::AreEqual(expected, actual);
+		}
+		TEST_METHOD(Input_for_rectangle_coordinates_and_triangle_is_suitable)
+		{
+			int parameter = 1;
+			int expected = 1;
+			int actual = inputIsSuitable(parameter);
+			Assert::AreEqual(expected, actual);
 		}
 	};
 }

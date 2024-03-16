@@ -1,6 +1,7 @@
 //denimm - software implementation
 
 #include "rectangleSolver.h"
+#include <math.h>
 
 #define QUADPOINTS 4 // number of points in a quadrilateral
 #define LINESINAQUAD 6 // number of possible lines made by a quad
@@ -53,9 +54,10 @@ QUADRILATERAL createQuadrilateral(double ArrayOfXYPairs[4][2]) {//////////////no
 			
 			//continue if the line has already been included in ValidLines
 
+
 			if (findSlope(Lines[i]) == findSlope(Lines[i2])) {
 				ValidLines[validLinesCounter] = Lines[i];
-				ValidLines[validLinesCounter + 2] = Lines[i2]; //add both linesto the list
+				ValidLines[validLinesCounter + 2] = Lines[i2]; //add both lines to the list
 			}
 
 
@@ -64,20 +66,25 @@ QUADRILATERAL createQuadrilateral(double ArrayOfXYPairs[4][2]) {//////////////no
 
 	}
 
-//(optional) sort the lines into their proper order
-
-
 //check if its a square, rectangle, or invalid
 
 	
-	QUADRILATERAL newQuad = {0};
-
+QUADRILATERAL newQuad = {0};
+newQuad.line1 = ValidLines[0];
+newQuad.line2 = ValidLines[1];
+newQuad.line3 = ValidLines[2];
+newQuad.line4 = ValidLines[3];
 
 //calculate perimiter
+	newQuad.perimiter = findPerimiter(newQuad);
 
-//calculate area
 
+//if it is a rectangle, assign the area
+	if (!isRectangle(newQuad))// exit early if its not a rectangle
+		return newQuad;
 
+	//calculate area
+	newQuad.area = findArea(newQuad);
 
 	return newQuad;
 }
@@ -93,7 +100,7 @@ LINE createLine(POINT point1, POINT point2) {
 	LINE newLine = {0};
 	newLine.point1 = point1;
 	newLine.point2 = point2;
-	newLine.length = distance(point1, point2);
+	newLine.length = findLength(newLine);
 	return newLine;
 }
 
@@ -103,20 +110,77 @@ double findSlope(LINE line) {/////////////not done
 	double y1 = line.point1.y;
 	double y2 = line.point2.y;
 
-	printf("POINTSINSLOPEFUNCT: %lf, %lf, %lf, %lf\n", x1, x2, y1, y2);
-
 	double dy = y1 - y2;
 	double dx = x1 - x2;
+
+	double slope = 0;
 
 	if(dx == 0){
 		return;
 	}
-	double slope = dy / dx;
+	slope = dy / dx;
 	return slope;
 }
 
 double findLength(LINE line) {
 	double length = 0;
-	////////////////////////////////////////////////
+	double dx = line.point1.x - line.point2.x;
+	double dy = line.point1.y - line.point2.y;
+	length = sqrt((dx * dx) + (dy * dy)); //find the deistance between two points
+
 	return length;
+}
+
+double findArea(QUADRILATERAL quad) {
+	double area = 0;
+	//find two lines that arent equal and calculate their area
+	if (quad.line1.length != quad.line2.length) {
+		area = quad.line1.length * quad.line2.length;
+	}
+	else if (quad.line1.length != quad.line3.length) {
+		area = quad.line1.length * quad.line3.length;
+	}
+	else if (quad.line1.length != quad.line4.length) {
+		area = quad.line1.length * quad.line4.length;
+	}
+
+	return area;
+}
+//detect if a quad is a rectangle
+bool isRectangle(QUADRILATERAL quad) {
+	//check if 2 sets of lengths are equal
+	if (quad.line1.length == quad.line2.length) {
+		if (quad.line3.length != quad.line4.length)
+			return false;
+	}
+	else if (quad.line1.length == quad.line3.length) {
+		if (quad.line2.length != quad.line4.length)
+			return false;
+	}
+	else if (quad.line1.length == quad.line4.length) {
+		if (quad.line2.length != quad.line3.length)
+			return false;
+	}
+
+	//check that 2 sets of slopes are equal
+	if ((quad.line1.point1.x == quad.line1.point2.x && quad.line2.point1.x == quad.line2.point2.x) || findSlope(quad.line1) == findSlope(quad.line2)) {
+		if ((quad.line3.point1.x == quad.line3.point2.x && quad.line4.point1.x == quad.line4.point2.x) || findSlope(quad.line3) == findSlope(quad.line4))
+			return true;
+	}
+	else if ((quad.line1.point1.x == quad.line1.point2.x && quad.line3.point1.x == quad.line3.point2.x) || findSlope(quad.line1) == findSlope(quad.line3)) {
+		if ((quad.line2.point1.x == quad.line2.point2.x && quad.line4.point1.x == quad.line4.point2.x) || findSlope(quad.line2) == findSlope(quad.line4))
+			return true;
+	}
+	else if ((quad.line1.point1.x == quad.line1.point2.x && quad.line4.point1.x == quad.line4.point2.x) || findSlope(quad.line1) == findSlope(quad.line4)) {
+		if ((quad.line3.point1.x == quad.line3.point2.x && quad.line2.point1.x == quad.line2.point2.x) || findSlope(quad.line2) == findSlope(quad.line3))
+			return true;
+	}
+
+	return false;
+}
+double findPerimiter(QUADRILATERAL quad) {
+	double perimiter = 0;
+	perimiter = quad.line1.length + quad.line2.length + quad.line3.length + quad.line4.length;
+
+	return perimiter;
 }

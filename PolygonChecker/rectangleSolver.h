@@ -42,5 +42,9 @@ LINE createLine(POINT, POINT);
 
 double findSlope(LINE line);
 double findLength(LINE line);
+double findArea(QUADRILATERAL quad);
+double findPerimiter(QUADRILATERAL quad);
+
+bool isRectangle(QUADRILATERAL quad);
 
 void printLine(LINE);

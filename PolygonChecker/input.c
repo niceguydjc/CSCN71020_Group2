@@ -28,17 +28,17 @@
 //	}
 //	return CoordinateArray;
 //}
-void getRectangleCoordinates(float** rectangle_coordinates) {
+void getRectangleCoordinates(double** rectangle_coordinates) {
 	printf("Enter rectangle coordinates:");
 	for (int i = 0; i <= 3; i++) {
 		printf("Enter coordinate for point number %d\n", i+1);
-		float x_coordinate = 0;
-		float y_coordinate = 0;
+		double x_coordinate = 0;
+		double y_coordinate = 0;
 		printf("x: ");
-		int symbols_returned_x = scanf("%f", &x_coordinate);
+		int symbols_returned_x = scanf("%lf", &x_coordinate);
 		symbols_returned_x = inputIsSuitable(symbols_returned_x);
 		printf("\ny: ");
-		int symbols_returned_y = scanf("%f", &y_coordinate);
+		int symbols_returned_y = scanf("%lf", &y_coordinate);
 		symbols_returned_y = inputIsSuitable(symbols_returned_y);
 		rectangle_coordinates[i][0] = x_coordinate;
 		rectangle_coordinates[i][1] = y_coordinate;

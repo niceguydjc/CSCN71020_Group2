@@ -3,28 +3,53 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<stdbool.h>
+#include "input.h"
 
-
-float** createCoordinateArray(float** CoordinateArray) {
-	printf("Enter coordinates for the rectangle\n");
+//float** createCoordinateArray(float** CoordinateArray) {
+//	printf("Enter coordinates for the rectangle\n");
+//	for (int i = 0; i <= 3; i++) {
+//		printf("Enter coordinate for point number %d\n", i + 1);
+//		float x_coordinate = 0;
+//		float y_coordinate = 0;
+//		printf("x: ");
+//		int symbols_returned_x = scanf("%f", &x_coordinate);
+//		if (symbols_returned_x != 1) {
+//			printf("The input is not suitable for the program.exiting\n");
+//			exit(EXIT_FAILURE);
+//		}
+//		printf("\ny: ");
+//		int symbols_returned_y = scanf("%f", &y_coordinate);
+//		if (symbols_returned_y != 1) {
+//			printf("The input is not suitable for the program.exiting\n");
+//			exit(EXIT_FAILURE);
+//		}
+//		CoordinateArray[i][0] = x_coordinate;
+//		CoordinateArray[i][1] = y_coordinate;
+//	}
+//	return CoordinateArray;
+//}
+void getRectangleCoordinates(float** rectangle_coordinates) {
+	printf("Enter rectangle coordinates:");
 	for (int i = 0; i <= 3; i++) {
-		printf("Enter coordinate for point number %d\n", i + 1);
+		printf("Enter coordinate for point number %d\n", i+1);
 		float x_coordinate = 0;
 		float y_coordinate = 0;
 		printf("x: ");
 		int symbols_returned_x = scanf("%f", &x_coordinate);
-		if (symbols_returned_x != 1) {
-			printf("The input is not suitable for the program.exiting\n");
-			exit(EXIT_FAILURE);
-		}
+		symbols_returned_x = inputIsSuitable(symbols_returned_x);
 		printf("\ny: ");
 		int symbols_returned_y = scanf("%f", &y_coordinate);
-		if (symbols_returned_y != 1) {
-			printf("The input is not suitable for the program.exiting\n");
-			exit(EXIT_FAILURE);
-		}
-		CoordinateArray[i][0] = x_coordinate;
-		CoordinateArray[i][1] = y_coordinate;
+		symbols_returned_y = inputIsSuitable(symbols_returned_y);
+		rectangle_coordinates[i][0] = x_coordinate;
+		rectangle_coordinates[i][1] = y_coordinate;
 	}
-	return CoordinateArray;
+}
+int inputIsSuitable(int symbols_returned) {
+	if (symbols_returned != 1) {
+		printf("The input is not suitable for the program.exiting\n");
+		return(EXIT_FAILURE);
+	}
+	else {
+		return symbols_returned;
+	}
 }

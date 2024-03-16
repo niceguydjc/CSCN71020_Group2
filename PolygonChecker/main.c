@@ -6,6 +6,7 @@
 #include "main.h"
 #include "triangleSolver.h"
 #include "rectangleSolver.h"
+#include "input.h"
 
 int side = 0;
 
@@ -75,10 +76,8 @@ int* getTriangleSides(int* triangleSides) {
 	for (int i = 0; i < 3; i++)
 	{
 		symbols_returned=scanf("%d", &triangleSides[i]);
-		if (symbols_returned != 1) {
-			printf("Error. Yor input is not suitable for the program. exiting");
-			exit(EXIT_FAILURE);
-		}
+		symbols_returned = inputIsSuitable(symbols_returned);
+		
 	}
 	return triangleSides;
 }

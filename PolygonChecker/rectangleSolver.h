@@ -2,6 +2,11 @@
 
 #include <stdbool.h>
 #include <stdio.h>
+
+#define QUADRILATERALPOINTS 4
+
+#define LINESINAQUAD 6
+
 //define rectangle structure
 typedef struct point {
 	double x;
@@ -11,7 +16,7 @@ typedef struct point {
 typedef struct line {
 	POINT point1;
 	POINT point2;
-	double slope;
+	double length;
 
 
 } LINE;
@@ -22,14 +27,12 @@ typedef struct quadrilateral {
 	LINE line2;
 	LINE line3;
 	LINE line4;
-	LINE line5;
-	LINE line6;
 	bool isRectangle;
+	double perimiter;
+	double area;
 } QUADRILATERAL;
 
-#define QUADRILATERALPOINTS 4
 
-#define LINESINAQUAD 6
 
 QUADRILATERAL createQuadrilateral(double ArrayOfPoints[4][2]);
 
@@ -37,6 +40,7 @@ POINT createPoint(double pair[2]);
 
 LINE createLine(POINT, POINT);
 
-double findSlope(LINE);
+double findSlope(LINE line);
+double findLength(LINE line);
 
-void filterLines(LINE*, QUADRILATERAL);
+void printLine(LINE);

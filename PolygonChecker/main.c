@@ -13,9 +13,14 @@ int main() {
 	double array[4][2] = { {0,1},{1.6,0.2},{0,-3},{-1.6,-2.2} };
 	QUADRILATERAL quad = createQuadrilateral(array);
 
+	printf("test that lines are stored:\n");
 
+	/*printLine(quad.Lines[0]);
+	printLine(quad.Lines[1]);
+	printLine(quad.Lines[2]);
+	printLine(quad.Lines[3]);
 
-
+	*/
 
 	bool continueProgram = true;
 	while (continueProgram) {

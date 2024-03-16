@@ -99,7 +99,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <AdditionalLibraryDirectories>C:\Users\Max\Desktop\maks\SfowftwareImpl\GroupprojectRepos\PolygonChecker\x64\Debug;C:\Users\Max\Desktop\maks\SfowftwareImpl\GroupprojectRepos\Unit Test\x64\Debug;$(VCInstallDir)UnitTest\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\PEKORA\source\repos\CSCN71020_Group2\PolygonChecker\x64\Debug;C:\Users\Max\Desktop\maks\SfowftwareImpl\GroupprojectRepos\Unit Test\x64\Debug;$(VCInstallDir)UnitTest\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>input.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>

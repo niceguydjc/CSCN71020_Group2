@@ -1,19 +1,50 @@
 #pragma once
 
+#include <stdbool.h>
+#include <stdio.h>
+
+#define QUADRILATERALPOINTS 4
+
+#define LINESINAQUAD 6
+
 //define rectangle structure
 typedef struct point {
-	int x;
-	int y;
+	double x;
+	double y;
 } POINT;
 
-//define rectangle structure
-typedef struct rectangle {
-	POINT topLeftCorner;
-	POINT topRightCorner;
-	POINT bottomLeftCorner;
-	POINT bottomRightCorner;
-	int area;
-	int perimeter;
-} RECTANGLE;
+typedef struct line {
+	POINT point1;
+	POINT point2;
+	double length;
 
-RECTANGLE createRectangle(int ArrayOfPoints[4][2]);
+
+} LINE;
+
+//define rectangle structure
+typedef struct quadrilateral {
+	LINE line1;
+	LINE line2;
+	LINE line3;
+	LINE line4;
+	bool isRectangle;
+	double perimiter;
+	double area;
+} QUADRILATERAL;
+
+
+
+QUADRILATERAL createQuadrilateral(double ArrayOfPoints[4][2]);
+
+POINT createPoint(double pair[2]);
+
+LINE createLine(POINT, POINT);
+
+double findSlope(LINE line);
+double findLength(LINE line);
+double findArea(QUADRILATERAL quad);
+double findPerimiter(QUADRILATERAL quad);
+
+bool isRectangle(QUADRILATERAL quad);
+
+void printLine(LINE);

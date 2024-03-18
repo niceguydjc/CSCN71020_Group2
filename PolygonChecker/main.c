@@ -1,12 +1,28 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdbool.h>
+#include <stdlib.h>
 
 #include "main.h"
 #include "triangleSolver.h"
+#include "rectangleSolver.h"
+#include "input.h"
 
 int side = 0;
 
 int main() {
+	double array[4][2] = { {0,1},{1.6,0.2},{0,-3},{-1.6,-2.2} };
+	QUADRILATERAL quad = createQuadrilateral(array);
+
+	printf("test that lines are stored:\n");
+
+	/*printLine(quad.Lines[0]);
+	printLine(quad.Lines[1]);
+	printLine(quad.Lines[2]);
+	printLine(quad.Lines[3]);
+
+	*/
+
 	bool continueProgram = true;
 	while (continueProgram) {
 		printWelcome();
@@ -56,9 +72,12 @@ int printShapeMenu() {
 
 int* getTriangleSides(int* triangleSides) {
 	printf_s("Enter the three sides of the triangle: ");
+	int symbols_returned = 0;
 	for (int i = 0; i < 3; i++)
 	{
-		scanf_s("%d", &triangleSides[i]);
+		symbols_returned=scanf("%d", &triangleSides[i]);
+		symbols_returned = inputIsSuitable(symbols_returned);
+		
 	}
 	return triangleSides;
 }

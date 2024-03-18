@@ -40,11 +40,11 @@ POINT createPoint(double pair[2]);
 
 LINE createLine(POINT, POINT);
 
-double findSlope(LINE line);
 double findLength(LINE line);
 double findArea(QUADRILATERAL quad);
 double findPerimiter(QUADRILATERAL quad);
 
 bool isRectangle(QUADRILATERAL quad);
 
+int compareLines(LINE lhs, LINE rhs);
 void printLine(LINE);

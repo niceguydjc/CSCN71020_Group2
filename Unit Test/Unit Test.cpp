@@ -27,15 +27,15 @@ typedef struct quadrilateral {
 
 
 extern "C" int inputIsSuitable(int);
-extern "C" QUADRILATERAL createQuadrilateral(double array[4][2]);
+extern "C" QUADRILATERAL createQuadrilateral(double ArrayOfPoints[4][2]);
 extern "C" LINE createLine(POINT point1, POINT point2);
 extern "C" POINT createPoint(double pair[2]);
 extern "C" char* analyzeTriangle(int, int, int);
-extern "C" double findSlope(LINE line);
 extern "C" double findLength(LINE);
 extern "C" double findArea(QUADRILATERAL quad);
 extern "C" double findPerimiter(QUADRILATERAL quad);
 extern "C" bool isRectangle(QUADRILATERAL quad);
+extern "C" int compareLines(LINE lhs, LINE rhs);
 
 namespace input
 {
@@ -103,6 +103,33 @@ namespace rectangles
 			Assert::IsTrue(expected);
 		}
 	};
+	TEST_CLASS(createQuadrilateralF)
+	{
+	public:
+		TEST_METHOD(Test001)
+		{
+			bool actual = false;
+			double QuadArray[4][2] = { {5,10}, {5,5}, {15,10}, {15,5} };
+			POINT TL = createPoint(QuadArray[0]);
+			POINT TR = createPoint(QuadArray[2]);
+			POINT BR = createPoint(QuadArray[3]);
+			POINT BL = createPoint(QuadArray[1]);
+
+			LINE line1 = createLine(TL, TR);
+			LINE line2 = createLine(TR, BR);
+			LINE line3 = createLine(BR, BL);
+			LINE line4 = createLine(BL, TL);
+
+
+
+			QUADRILATERAL testQuad = createQuadrilateral(QuadArray);
+			if (compareLines(testQuad.line1, line1) && compareLines(testQuad.line2, line2) && compareLines(testQuad.line3, line3) && compareLines(testQuad.line4, line4))
+				actual = true;
+			Assert::IsTrue(actual);
+		}
+	};
+
+
 
 	TEST_CLASS(findLengthF)
 	{
@@ -117,24 +144,6 @@ namespace rectangles
 
 			double expected = 5;
 			double actual = findLength(testLine);
-			Assert::AreEqual(expected, actual);
-		}
-	};
-
-	TEST_CLASS(findSlopeF)
-	{
-	public:
-		TEST_METHOD(Test001)
-		{
-			double coord1[2] = { 10, 10 };
-			double coord2[2] = { 5, 5 };
-
-			POINT point1 = createPoint(coord1);
-			POINT point2 = createPoint(coord2);
-			LINE line = createLine(point1, point2);
-
-			double expected = 1;
-			double actual = findSlope(line);
 			Assert::AreEqual(expected, actual);
 		}
 	};
@@ -191,9 +200,44 @@ namespace rectangles
 		{
 			double expected = 30;
 			double QuadArray[4][2] = { {5,10}, {5,5}, {15,10}, {15,5} };
-		
+
 			QUADRILATERAL testQuad = createQuadrilateral(QuadArray);
 			double actual = findPerimiter(testQuad);
+			Assert::AreEqual(expected, actual);
+		}
+	};
+	TEST_CLASS(compareLinesF)
+	{
+	public:
+
+		TEST_METHOD(Test001)
+		{
+			bool expected = true;
+			double QuadArray[4][2] = { {5,10}, {5,5}, {15,10}, {15,5} };
+			POINT p1 = createPoint(QuadArray[0]);
+			POINT p2 = createPoint(QuadArray[1]);
+			POINT p3 = createPoint(QuadArray[2]);
+			POINT p4 = createPoint(QuadArray[3]);
+
+			LINE line1 = createLine(p1, p2);
+			LINE line2 = createLine(p1, p2);
+
+			bool actual = compareLines(line1, line2);
+			Assert::AreEqual(expected, actual);
+		}
+		TEST_METHOD(Test002)
+		{
+			bool expected = false;
+			double QuadArray[4][2] = { {5,10}, {5,5}, {15,10}, {15,5} };
+			POINT p1 = createPoint(QuadArray[0]);
+			POINT p2 = createPoint(QuadArray[1]);
+			POINT p3 = createPoint(QuadArray[2]);
+			POINT p4 = createPoint(QuadArray[3]);
+
+			LINE line1 = createLine(p1, p2);
+			LINE line2 = createLine(p3, p2);
+
+			bool actual = compareLines(line1, line2);
 			Assert::AreEqual(expected, actual);
 		}
 	};

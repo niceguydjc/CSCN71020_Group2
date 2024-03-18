@@ -5,6 +5,7 @@
 
 #define QUADPOINTS 4 // number of points in a quadrilateral
 #define LINESINAQUAD 6 // number of possible lines made by a quad
+#define PI 3.14159265
 void printLine(LINE line) {
 	printf("point 1:\nx: %lf, ", line.point1.x);
 	printf("y: %lf\n", line.point1.y);
@@ -12,6 +13,7 @@ void printLine(LINE line) {
 	printf("y: %lf\n", line.point2.y);
 	printf("length: %lf\n", line.length);
 }
+
 //create the rectangle
 QUADRILATERAL createQuadrilateral(double ArrayOfXYPairs[4][2]) {//////////////not done
 
@@ -21,59 +23,30 @@ QUADRILATERAL createQuadrilateral(double ArrayOfXYPairs[4][2]) {//////////////no
 		Points[i] = createPoint(ArrayOfXYPairs[i]);
 	}
 
-//create lines
-	LINE Lines[LINESINAQUAD] = {0};
-	for (int i = 0; i < LINESINAQUAD; i++) {
-		//case to make a line with 4 & 1
-		if (i == LINESINAQUAD - 1) {
-			Lines[i] = createLine(Points[i], Points[0]);
-			continue;
-		}
-		//case to make a line with point 2 & 4
-		if (i == LINESINAQUAD - 2) {
-			Lines[i] = createLine(Points[1], Points[QUADPOINTS - 1]);
-			continue;
-		}
-		//connect points 1 - 4
-		Lines[i] = createLine(Points[i], Points[i + 1]);
+//loop through each point and assign them to corners
+
+	POINT TLCorner = Points[0];
+	POINT TRCorner = Points[0];
+	POINT BLCorner = Points[0];
+	POINT BRCorner = Points[0];
+
+	for (int i = 0; i < QUADPOINTS; i++) {
+		if (Points[i].x <= TLCorner.x && Points[i].y >= TLCorner.y)
+			TLCorner = Points[i];
+		if (Points[i].x >= TRCorner.x && Points[i].y >= TRCorner.y)
+			TRCorner = Points[i];
+		if (Points[i].x <= BLCorner.x && Points[i].y <= BLCorner.y)
+			BLCorner = Points[i];
+		if (Points[i].x >= BRCorner.x && Points[i].y <= BRCorner.y)
+			BRCorner = Points[i];
 	}
 
-//calculate slope from lines to assign them to .line1-4
-	LINE ValidLines[QUADPOINTS] = { 0 }; // only 4 valid lines
-	int validLinesCounter = 0;
-	for (int i = 0; i < LINESINAQUAD; i++) {
-		//case for if the line is vertical (slope is divided by zero)
-		if (Lines[i].point1.x == Lines[i].point2.x) {
-
-			////////////////////////////////////////////////////////////////idk what to do yet
-			continue;
-		}
-
-		//check if line has a parallel counterpart with slope, if it is, add it to the list of valid lines
-		for (int i2 = i + 1; i2 < LINESINAQUAD; i2++) {
-			
-			//continue if the line has already been included in ValidLines
-
-
-			if (findSlope(Lines[i]) == findSlope(Lines[i2])) {
-				ValidLines[validLinesCounter] = Lines[i];
-				ValidLines[validLinesCounter + 2] = Lines[i2]; //add both lines to the list
-			}
-
-
-		}
-
-
-	}
-
-//check if its a square, rectangle, or invalid
-
-	
-QUADRILATERAL newQuad = {0};
-newQuad.line1 = ValidLines[0];
-newQuad.line2 = ValidLines[1];
-newQuad.line3 = ValidLines[2];
-newQuad.line4 = ValidLines[3];
+//make the quadrilateral
+	QUADRILATERAL newQuad = {0};
+	newQuad.line1 = createLine(TLCorner, TRCorner);
+	newQuad.line2 = createLine(TRCorner, BRCorner);
+	newQuad.line3 = createLine(BRCorner, BLCorner);
+	newQuad.line4 = createLine(BLCorner, TLCorner);
 
 //calculate perimiter
 	newQuad.perimiter = findPerimiter(newQuad);
@@ -82,6 +55,8 @@ newQuad.line4 = ValidLines[3];
 //if it is a rectangle, assign the area
 	if (!isRectangle(newQuad))// exit early if its not a rectangle
 		return newQuad;
+
+	newQuad.isRectangle = true;
 
 	//calculate area
 	newQuad.area = findArea(newQuad);
@@ -102,24 +77,6 @@ LINE createLine(POINT point1, POINT point2) {
 	newLine.point2 = point2;
 	newLine.length = findLength(newLine);
 	return newLine;
-}
-
-double findSlope(LINE line) {/////////////not done
-	double x1 = line.point1.x;
-	double x2 = line.point2.x;
-	double y1 = line.point1.y;
-	double y2 = line.point2.y;
-
-	double dy = y1 - y2;
-	double dx = x1 - x2;
-
-	double slope = 0;
-
-	if(dx == 0){
-		return;
-	}
-	slope = dy / dx;
-	return slope;
 }
 
 double findLength(LINE line) {
@@ -146,41 +103,22 @@ double findArea(QUADRILATERAL quad) {
 
 	return area;
 }
-//detect if a quad is a rectangle
-bool isRectangle(QUADRILATERAL quad) {
-	//check if 2 sets of lengths are equal
-	if (quad.line1.length == quad.line2.length) {
-		if (quad.line3.length != quad.line4.length)
-			return false;
-	}
-	else if (quad.line1.length == quad.line3.length) {
-		if (quad.line2.length != quad.line4.length)
-			return false;
-	}
-	else if (quad.line1.length == quad.line4.length) {
-		if (quad.line2.length != quad.line3.length)
-			return false;
-	}
 
-	//check that 2 sets of slopes are equal
-	if ((quad.line1.point1.x == quad.line1.point2.x && quad.line2.point1.x == quad.line2.point2.x) || findSlope(quad.line1) == findSlope(quad.line2)) {
-		if ((quad.line3.point1.x == quad.line3.point2.x && quad.line4.point1.x == quad.line4.point2.x) || findSlope(quad.line3) == findSlope(quad.line4))
-			return true;
-	}
-	else if ((quad.line1.point1.x == quad.line1.point2.x && quad.line3.point1.x == quad.line3.point2.x) || findSlope(quad.line1) == findSlope(quad.line3)) {
-		if ((quad.line2.point1.x == quad.line2.point2.x && quad.line4.point1.x == quad.line4.point2.x) || findSlope(quad.line2) == findSlope(quad.line4))
-			return true;
-	}
-	else if ((quad.line1.point1.x == quad.line1.point2.x && quad.line4.point1.x == quad.line4.point2.x) || findSlope(quad.line1) == findSlope(quad.line4)) {
-		if ((quad.line3.point1.x == quad.line3.point2.x && quad.line2.point1.x == quad.line2.point2.x) || findSlope(quad.line2) == findSlope(quad.line3))
-			return true;
-	}
-
-	return false;
-}
 double findPerimiter(QUADRILATERAL quad) {
 	double perimiter = 0;
 	perimiter = quad.line1.length + quad.line2.length + quad.line3.length + quad.line4.length;
 
 	return perimiter;
+}
+
+//detect if a quad is a rectangle
+bool isRectangle(QUADRILATERAL quad) {
+	//check if 2 sets of lengths are equal
+	return (quad.line1.length == quad.line3.length && quad.line2.length == quad.line4.length);
+}
+
+int compareLines(LINE lhs, LINE rhs) {
+	if (lhs.point1.x == rhs.point1.x && lhs.point1.y == rhs.point1.y && lhs.point2.x == rhs.point2.x && lhs.point2.y == rhs.point2.y)
+		return 1;
+	return 0;
 }

@@ -70,14 +70,3 @@ int printShapeMenu() {
 	return shapeChoice;
 }
 
-int* getTriangleSides(int* triangleSides) {
-	printf_s("Enter the three sides of the triangle: ");
-	int symbols_returned = 0;
-	for (int i = 0; i < 3; i++)
-	{
-		symbols_returned=scanf("%d", &triangleSides[i]);
-		symbols_returned = inputIsSuitable(symbols_returned);
-		
-	}
-	return triangleSides;
-}

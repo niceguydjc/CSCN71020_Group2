@@ -143,7 +143,6 @@
     <ClCompile Include="main.c" />
     <ClCompile Include="rectangleSolver.c" />
     <ClCompile Include="triangleSolver.c" />
-    <ClCompile Include="TriangleSolverUse.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="input.h" />

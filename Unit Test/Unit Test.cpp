@@ -1,6 +1,5 @@
 #include "pch.h"
 #include "CppUnitTest.h"
-#include "triangleSolver.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -26,12 +25,15 @@ typedef struct quadrilateral {
 	double area;
 } QUADRILATERAL;
 
-
+//////////////////////
+//put functions here//
+//////////////////////
 extern "C" int inputIsSuitable(int);
+extern "C" void calculateTriangleAngles(double side_1, double side_2, double side_3);
+//extern "C" char* analyzeTriangle(int, int, int);
 extern "C" QUADRILATERAL createQuadrilateral(double ArrayOfPoints[4][2]);
 extern "C" LINE createLine(POINT point1, POINT point2);
 extern "C" POINT createPoint(double pair[2]);
-extern "C" char* analyzeTriangle(int, int, int);
 extern "C" double findLength(LINE);
 extern "C" double findArea(QUADRILATERAL quad);
 extern "C" double findPerimiter(QUADRILATERAL quad);
@@ -68,7 +70,7 @@ namespace triangle
 
 		TEST_METHOD(TestRightAngledTriangle) {
 			double alpha, beta, gamma;
-			TriangleCalculator::calculateTriangleAngles(3, 4, 5, alpha, beta, gamma);
+			calculateTriangleAngles(3, 4, 5, alpha, beta, gamma);
 
 			// Asserts to check the angles with a tolerance
 			Assert::AreEqual(90.0, alpha, 0.1, L"Alpha angle is not correct.");
@@ -83,7 +85,7 @@ namespace triangle
 
 		TEST_METHOD(TestEquilateralTriangle) {
 			double alpha, beta, gamma;
-			TriangleCalculator::calculateTriangleAngles(6, 6, 6, alpha, beta, gamma);
+			calculateTriangleAngles(6, 6, 6, alpha, beta, gamma);
 
 			// Since it's an equilateral triangle, all angles should be close to 60 degrees
 			Assert::AreEqual(60.0, alpha, 0.1, L"Alpha angle is not correct for an equilateral triangle.");
@@ -98,7 +100,7 @@ namespace triangle
 
 		TEST_METHOD(TestScaleneTriangle) {
 			double alpha, beta, gamma;
-			TriangleCalculator::calculateTriangleAngles(7, 8, 9, alpha, beta, gamma);
+			calculateTriangleAngles(7, 8, 9, alpha, beta, gamma);
 
 			// Expected angles are calculated beforehand and are specific to this scalene triangle
 			Assert::AreEqual(44.415308597, alpha, 0.1, L"Alpha angle is not correct for a scalene triangle.");

@@ -10,7 +10,7 @@ int main() {
     double side_3;
 
     printf("Enter the lengths of the three sides of a triangle:\n");
-    if (scanf("%lf %lf %lf", &side_1, &side_2, &side_3) != 3) {
+    if (scanf_s("%lf %lf %lf", &side_1, &side_2, &side_3) != 3) {
         printf("Invalid input. Please enter three numeric values.\n");
         return 1; // Exit with error status
     }

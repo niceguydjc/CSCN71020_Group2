@@ -9,6 +9,9 @@
 #include "input.h"
 
 int side = 0;
+double side_1;
+double side_2;
+double side_3;
 
 int main() {
 	double Testarray[4][2] = { {0,1},{1.6,0.2},{0,-3},{-1.6,-2.2} };
@@ -32,13 +35,26 @@ int main() {
 		switch (shapeChoice)
 		{
 		case 1:
-			printf_s("Triangle selected.\n");
-			int triangleSides[3] = { 0, 0, 0 };
-			int* triangleSidesPtr = getTriangleSides(triangleSides);
-			//printf_s("! %d\n", triangleSidesPtr[0]);
-			char* result = analyzeTriangle(triangleSidesPtr[0], triangleSidesPtr[1], triangleSidesPtr[2]);
-			printf_s("%s\n", result);
-			break;
+			printf("Enter the lengths of the three sides of a triangle:\n");
+			if (scanf("%lf %lf %lf", &side_1, &side_2, &side_3) != 3) {
+				printf("Invalid input. Please enter three numeric values.\n");
+				return 1; // Exit with error status
+			}
+
+			// Check for non-positive side lengths
+			if (side_1 <= 0 || side_2 <= 0 || side_3 <= 0) {
+				printf("Sides must be greater than zero.\n");
+				return 1; // Exit with error status
+			}
+
+			// Check if the sides form a triangle using the triangle inequality theorem
+			if (side_1 + side_2 > side_3 && side_1 + side_3 > side_2 && side_2 + side_3 > side_1) {
+				printf("The sides form a triangle.\n");
+				calculateTriangleAngles(side_1, side_2, side_3);
+			}
+			else {
+				printf("The given sides do not form a triangle.\n");
+			}
 		case 0:
 			continueProgram = false;
 			break;

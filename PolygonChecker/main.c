@@ -55,6 +55,10 @@ int main() {
 			else {
 				printf("The given sides do not form a triangle.\n");
 			}
+			break;
+		case 2:
+			//insert rectangle info
+			break;
 		case 0:
 			continueProgram = false;
 			break;
@@ -76,6 +80,7 @@ void printWelcome() {
 
 int printShapeMenu() {
 	printf_s("1. Triangle\n");
+	printf_s("2. Rectangle\n");
 	printf_s("0. Exit\n");
 
 	int shapeChoice;

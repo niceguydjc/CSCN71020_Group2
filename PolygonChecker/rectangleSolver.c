@@ -100,6 +100,8 @@ double findArea(QUADRILATERAL quad) {
 	else if (quad.line1.length != quad.line4.length) {
 		area = quad.line1.length * quad.line4.length;
 	}
+	else//has already checked three lines, the shape must be a square as it has already been determined to be a rectangle before calling this fucntion
+		area = quad.line1.length * quad.line2.length;
 
 	return area;
 }

@@ -59,7 +59,19 @@ int main() {
 			break;
 		case 2:
 			getRectangleCoordinates(array_of_coordinates_for_rectangle);
+			for (int i = 0; i < 4; i++) {
+				printf("%lf\n", array_of_coordinates_for_rectangle[i][0]);
+				printf("%lf\n", array_of_coordinates_for_rectangle[i][1]);
 
+			}
+
+			quad = createQuadrilateral(array_of_coordinates_for_rectangle);
+
+
+
+			printf("perimiter: %lf\n", quad.perimiter);
+			if (quad.isRectangle)
+				printf("area: %lf\n", quad.area);
 
 			break;
 		case 0:

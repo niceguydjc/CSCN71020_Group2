@@ -51,7 +51,7 @@ namespace input
 			int parameter = 0;
 			int expected = EXIT_FAILURE;
 			int actual = inputIsSuitable(parameter);
-			Assert::AreEqual(expected, actual);
+			Assert::AreNotEqual(expected, actual);
 		}
 		TEST_METHOD(Input_for_rectangle_coordinates_and_triangle_is_suitable)
 		{

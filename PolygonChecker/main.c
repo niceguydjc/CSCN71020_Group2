@@ -16,6 +16,7 @@ double side_3;
 int main() {
 	double array_of_coordinates_for_rectangle[4][2] = { 0 };
 
+
 	bool continueProgram = true;
 	while (continueProgram) {
 		printWelcome();
@@ -49,7 +50,7 @@ int main() {
 		case 2:
 			getRectangleCoordinates(array_of_coordinates_for_rectangle);
 
-			quad = createQuadrilateral(array_of_coordinates_for_rectangle);
+			QUADRILATERAL quad = createQuadrilateral(array_of_coordinates_for_rectangle);
 
 
 

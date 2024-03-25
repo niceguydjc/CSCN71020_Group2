@@ -14,6 +14,7 @@ double side_2;
 double side_3;
 
 int main() {
+	double array_of_coordinates_for_rectangle[4][2] = { 0 };
 	double Testarray[4][2] = { {0,1},{1.6,0.2},{0,-3},{-1.6,-2.2} };
 	QUADRILATERAL quad = createQuadrilateral(Testarray);
 
@@ -57,7 +58,9 @@ int main() {
 			}
 			break;
 		case 2:
-			//insert rectangle info
+			getRectangleCoordinates(array_of_coordinates_for_rectangle);
+
+
 			break;
 		case 0:
 			continueProgram = false;

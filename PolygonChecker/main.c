@@ -15,17 +15,7 @@ double side_3;
 
 int main() {
 	double array_of_coordinates_for_rectangle[4][2] = { 0 };
-	double Testarray[4][2] = { {0,1},{1.6,0.2},{0,-3},{-1.6,-2.2} };
-	QUADRILATERAL quad = createQuadrilateral(Testarray);
 
-	printf("test that lines are stored:\n");
-
-	/*printLine(quad.Lines[0]);
-	printLine(quad.Lines[1]);
-	printLine(quad.Lines[2]);
-	printLine(quad.Lines[3]);
-
-	*/
 
 	bool continueProgram = true;
 	while (continueProgram) {
@@ -59,13 +49,8 @@ int main() {
 			break;
 		case 2:
 			getRectangleCoordinates(array_of_coordinates_for_rectangle);
-			for (int i = 0; i < 4; i++) {
-				printf("%lf\n", array_of_coordinates_for_rectangle[i][0]);
-				printf("%lf\n", array_of_coordinates_for_rectangle[i][1]);
 
-			}
-
-			quad = createQuadrilateral(array_of_coordinates_for_rectangle);
+			QUADRILATERAL quad = createQuadrilateral(array_of_coordinates_for_rectangle);
 
 
 

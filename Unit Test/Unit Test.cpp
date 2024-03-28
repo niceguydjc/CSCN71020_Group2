@@ -25,12 +25,21 @@ typedef struct quadrilateral {
 	double area;
 } QUADRILATERAL;
 
+
+
 //////////////////////
 //put functions here//
 //////////////////////
 extern "C" int inputIsSuitable(int);
-extern "C" void calculateTriangleAngles(double side_1, double side_2, double side_3);
-//extern "C" char* analyzeTriangle(int, int, int);
+extern "C" {
+	typedef struct {
+		double alpha;
+		double beta;
+		double gamma;
+	} TriangleAngles;
+
+	TriangleAngles calculateTriangleAngles(double side_1, double side_2, double side_3);
+}
 extern "C" QUADRILATERAL createQuadrilateral(double ArrayOfPoints[4][2]);
 extern "C" LINE createLine(POINT point1, POINT point2);
 extern "C" POINT createPoint(double pair[2]);
@@ -63,52 +72,51 @@ namespace input
 	};
 }
 namespace triangle
+	 
 {
-	TEST_CLASS(UnitTest)
+	TEST_CLASS(RightAngle)
 	{
 	public:
 
 		TEST_METHOD(TestRightAngledTriangle) {
-			double alpha, beta, gamma;
-			calculateTriangleAngles(3, 4, 5, alpha, beta, gamma);
+			TriangleAngles angles = calculateTriangleAngles(3, 4, 5);
 
 			// Asserts to check the angles with a tolerance
-			Assert::AreEqual(90.0, alpha, 0.1, L"Alpha angle is not correct.");
-			Assert::AreEqual(53.13, beta, 0.1, L"Beta angle is not correct.");
-			Assert::AreEqual(36.87, gamma, 0.1, L"Gamma angle is not correct.");
+			Assert::AreEqual(90.0, angles.alpha, 0.1, L"Alpha angle is not correct.");
+			Assert::AreEqual(53.13, angles.beta, 0.1, L"Beta angle is not correct.");
+			Assert::AreEqual(36.87, angles.gamma, 0.1, L"Gamma angle is not correct.");
 		}
 	};
 
-	TEST_CLASS(UnitTest)
+	TEST_CLASS(Equilateral)
 	{
 	public:
 
 		TEST_METHOD(TestEquilateralTriangle) {
-			double alpha, beta, gamma;
-			calculateTriangleAngles(6, 6, 6, alpha, beta, gamma);
+			TriangleAngles angles = calculateTriangleAngles(6, 6, 6);
 
 			// Since it's an equilateral triangle, all angles should be close to 60 degrees
-			Assert::AreEqual(60.0, alpha, 0.1, L"Alpha angle is not correct for an equilateral triangle.");
-			Assert::AreEqual(60.0, beta, 0.1, L"Beta angle is not correct for an equilateral triangle.");
-			Assert::AreEqual(60.0, gamma, 0.1, L"Gamma angle is not correct for an equilateral triangle.");
+			Assert::AreEqual(60.0, angles.alpha, 0.1, L"Alpha angle is not correct for an equilateral triangle.");
+			Assert::AreEqual(60.0, angles.beta, 0.1, L"Beta angle is not correct for an equilateral triangle.");
+			Assert::AreEqual(60.0, angles.gamma, 0.1, L"Gamma angle is not correct for an equilateral triangle.");
 		}
 	};
 
-	TEST_CLASS(UnitTest)
+	TEST_CLASS(Scalene)
 	{
 	public:
 
 		TEST_METHOD(TestScaleneTriangle) {
-			double alpha, beta, gamma;
-			calculateTriangleAngles(7, 8, 9, alpha, beta, gamma);
+			TriangleAngles angles = calculateTriangleAngles(7, 8, 9);
 
 			// Expected angles are calculated beforehand and are specific to this scalene triangle
-			Assert::AreEqual(44.415308597, alpha, 0.1, L"Alpha angle is not correct for a scalene triangle.");
-			Assert::AreEqual(55.150399829, beta, 0.1, L"Beta angle is not correct for a scalene triangle.");
-			Assert::AreEqual(80.434291574, gamma, 0.1, L"Gamma angle is not correct for a scalene triangle.");
+			Assert::AreEqual(44.415308597, angles.alpha, 0.1, L"Alpha angle is not correct for a scalene triangle.");
+			Assert::AreEqual(55.150399829, angles.beta, 0.1, L"Beta angle is not correct for a scalene triangle.");
+			Assert::AreEqual(80.434291574, angles.gamma, 0.1, L"Gamma angle is not correct for a scalene triangle.");
 		}
 	};
 }
+
 namespace rectangles
 {
 	TEST_CLASS(createPointF)

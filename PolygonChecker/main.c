@@ -41,7 +41,11 @@ int main() {
 			// Check if the sides form a triangle using the triangle inequality theorem
 			if (side_1 + side_2 > side_3 && side_1 + side_3 > side_2 && side_2 + side_3 > side_1) {
 				printf("The sides form a triangle.\n");
-				calculateTriangleAngles(side_1, side_2, side_3);
+				TriangleAngles triangleAngles = calculateTriangleAngles(side_1, side_2, side_3);
+				printf("The angles of the triangle are: \n");
+				printf("Alpha: %lf degrees\n", triangleAngles.alpha);
+				printf("Beta: %lf degrees\n", triangleAngles.beta);
+				printf("Gamma: %lf degrees\n", triangleAngles.gamma);
 			}
 			else {
 				printf("The given sides do not form a triangle.\n");

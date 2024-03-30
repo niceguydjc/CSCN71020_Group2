@@ -40,11 +40,13 @@ int* getTriangleSides(int* triangleSides) {
 	for (int i = 0; i < 3; i++)
 	{
 		symbols_returned = scanf("%d", &triangleSides[i]);
-		if (symbols_returned <= 0) {
+		if (triangleSides[i] <= 0) {
 			printf("The side you entered is less or equal to zero.");
 			symbols_returned = 0;
 		}
 		symbols_returned = inputIsSuitable(symbols_returned);
+		if (symbols_returned != 1)
+			exit(EXIT_FAILURE);
 	}
 	return triangleSides;
 }

@@ -14,9 +14,13 @@ void getRectangleCoordinates(double rectangle_coordinates[4][2]) {
 		printf("\nx: ");
 		int symbols_returned_x = scanf("%lf", &x_coordinate);
 		symbols_returned_x = inputIsSuitable(symbols_returned_x);
+		if (symbols_returned_x != 1)
+			exit(EXIT_FAILURE);
 		printf("\ny: ");
 		int symbols_returned_y = scanf("%lf", &y_coordinate);
 		symbols_returned_y = inputIsSuitable(symbols_returned_y);
+		if (symbols_returned_y != 1)
+			exit(EXIT_FAILURE);
 		rectangle_coordinates[i][0] = x_coordinate;
 		rectangle_coordinates[i][1] = y_coordinate;
 	}
@@ -24,7 +28,7 @@ void getRectangleCoordinates(double rectangle_coordinates[4][2]) {
 int inputIsSuitable(int symbols_returned) {
 	if (symbols_returned != 1) {
 		printf("The input is not suitable for the program.exiting\n");
-		exit(EXIT_FAILURE);
+		return 0;
 	}
 	else {
 		return symbols_returned;

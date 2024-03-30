@@ -51,7 +51,7 @@ extern "C" int compareLines(LINE lhs, LINE rhs);
 
 namespace input
 {
-	TEST_CLASS(UnitTest)
+	TEST_CLASS(ScanfReturnValueCheck)
 	{
 	public:
 		
